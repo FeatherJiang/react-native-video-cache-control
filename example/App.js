@@ -1,14 +1,14 @@
-import React, {Component, useEffect, useState} from "react";
+import React, { Component, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import convertToCache, {convertAsync} from "react-native-video-cache";
+import convertToCache, { convertAsync } from "react-native-video-cache-control";
 
 export default function App() {
   const url =
     "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4";
   const [asyncVersion, setAsyncVersion] = useState();
   useEffect(() => {
-    convertAsync(url).then(setAsyncVersion)
-  }, [])
+    convertAsync(url).then(setAsyncVersion);
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>☆Original URL☆</Text>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",
-    padding: 20
+    padding: 20,
   },
   welcome: {
     fontSize: 20,

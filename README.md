@@ -11,16 +11,16 @@ Use following libraries to do the heavy lifting.
 
 ## Getting started
 
-`$ yarn add react-native-video-cache`
+`$ yarn add react-native-video-cache-control`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-video-cache`
+`$ react-native link react-native-video-cache-control`
 
 ## Usage
 
 ```javascript
-import convertToProxyURL from 'react-native-video-cache';
+import convertToProxyURL from 'react-native-video-cache-control';
 ...
 <Video source={{uri: convertToProxyURL({url: originalURL, headers: {referer: 'https://example.com'}})}} />
 ```

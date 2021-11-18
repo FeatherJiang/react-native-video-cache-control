@@ -27,5 +27,5 @@ platform :ios, '10.0'
 			'DevSupport'
 		]
 
-		pod 'react-native-video-cache', :path => '../../react-native-video-cache.podspec'
+		pod 'react-native-video-cache-control', :path => '../../react-native-video-cache-control.podspec'
 	end
