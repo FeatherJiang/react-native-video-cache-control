@@ -5,16 +5,19 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(convert:(NSString *)url)
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(convert:(NSDictionary *)source)
 {
     if (!KTVHTTPCache.proxyIsRunning) {
       NSError *error;
       [KTVHTTPCache proxyStart:&error];
       if (error) {
-        return url;
+        return [source objectForKey:@"url"];
       }
     }
-    return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:url]].absoluteString;
+    if ([source objectForKey:@"headers"]) {
+      [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
+    }
+    return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString;
 }
 
 RCT_EXPORT_METHOD(convertAsync:(NSString *)url

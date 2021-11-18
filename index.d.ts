@@ -1,1 +1,1 @@
-export default function convert(url: string): string;
+export default function convert(url: string, headers: object): string;

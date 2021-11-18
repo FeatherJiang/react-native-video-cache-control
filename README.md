@@ -20,5 +20,5 @@ Use following libraries to do the heavy lifting.
 ```javascript
 import convertToProxyURL from 'react-native-video-cache';
 ...
-<Video source={{uri: convertToProxyURL(originalURL)}} />
+<Video source={{uri: convertToProxyURL({url: originalURL, headers: {referer: 'https://example.com'}})}} />
 ```
