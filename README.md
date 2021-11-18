@@ -1,4 +1,6 @@
-# react-native-video-cache
+# react-native-video-cache-control
+
+Reference https://github.com/zhigang1992/react-native-video-cache
 
 Boost performance on online video loading and caching
 

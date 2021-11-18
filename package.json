@@ -1,21 +1,21 @@
 {
-  "name": "react-native-video-cache",
-  "title": "React Native Video Cache",
-  "version": "2.0.3",
+  "name": "react-native-video-cache-control",
+  "title": "React Native Video Cache Control",
+  "version": "1.0.0",
   "description": "Boost performance on online video loading and caching",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhigang1992/react-native-video-cache.git",
-    "baseUrl": "https://github.com/zhigang1992/react-native-video-cache"
+    "url": "git+https://github.com/FeatherJiang/react-native-video-cache-control.git",
+    "baseUrl": "https://github.com/FeatherJiang/react-native-video-cache-control"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
-    "name": "Kyle Fang",
-    "email": "zhigang1992@gmail.com"
+    "name": "feather",
+    "email": "feather.jiang@icloud.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
