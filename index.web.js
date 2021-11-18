@@ -1,2 +1,2 @@
-export default (url) => url;
+export default (source) => source;
 export const convertAsync = Promise.resolve;

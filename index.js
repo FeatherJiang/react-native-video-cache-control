@@ -1,10 +1,10 @@
 import { NativeModules } from "react-native";
 
-export default (url, headers) => {
+export default (source) => {
   if (!global.nativeCallSyncHook) {
-    return url;
+    return source.url;
   }
-  return NativeModules.VideoCache.convert(url, headers);
+  return NativeModules.VideoCache.convert(source);
 };
 
 export const convertAsync = NativeModules.VideoCache.convertAsync;
