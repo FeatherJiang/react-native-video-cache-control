@@ -20,7 +20,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(convert:(NSDictionary *)source)
     return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString;
 }
 
-RCT_EXPORT_METHOD(convertAsync:(NSString *)url
+RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -32,7 +32,10 @@ RCT_EXPORT_METHOD(convertAsync:(NSString *)url
       return;
     }
   }
-  resolve([KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:url]].absoluteString);
+  if ([source objectForKey:@"headers"]) {
+      [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
+    }
+  resolve([KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString);
 }
 
 @end
