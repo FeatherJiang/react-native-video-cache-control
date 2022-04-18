@@ -13,10 +13,6 @@ Use following libraries to do the heavy lifting.
 
 `$ yarn add react-native-video-cache-control`
 
-### Mostly automatic installation
-
-`$ react-native link react-native-video-cache-control`
-
 ## Usage
 
 ```javascript

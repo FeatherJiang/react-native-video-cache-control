@@ -1,31 +1,21 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
 platform :ios, '10.0'
 
-	target 'example' do
-		rn_path = '../node_modules/react-native'
+target 'VideoCacheControlExample' do
+  config = use_native_modules!
 
-		pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
-		pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
-		pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
-		pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/GLog.podspec"
-		pod 'React', path: rn_path, subspecs: [
-			'Core',
-			'CxxBridge',
-			'RCTAnimation',
-			'RCTActionSheet',
-			'RCTImage',
-			'RCTLinkingIOS',
-			'RCTNetwork',
-			'RCTSettings',
-			'RCTText',
-			'RCTVibration',
-			'RCTWebSocket',
-			'RCTPushNotification',
-			'RCTCameraRoll',
-			'RCTSettings',
-			'RCTBlob',
-			'RCTGeolocation',
-			'DevSupport'
-		]
+  use_react_native!(:path => config["reactNativePath"])
 
-		pod 'react-native-video-cache-control', :path => '../../react-native-video-cache-control.podspec'
-	end
+  pod 'react-native-video-cache-control', :path => '../..'
+
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  # use_flipper!({ 'Flipper' => '0.80.0' })
+  # post_install do |installer|
+  #   flipper_post_install(installer)
+  # end
+end
