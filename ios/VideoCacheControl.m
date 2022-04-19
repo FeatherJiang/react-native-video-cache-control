@@ -7,17 +7,17 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(convert:(NSDictionary *)source)
 {
-    if (!KTVHTTPCache.proxyIsRunning) {
-      NSError *error;
-      [KTVHTTPCache proxyStart:&error];
-      if (error) {
-        return [source objectForKey:@"url"];
-      }
+  if (!KTVHTTPCache.proxyIsRunning) {
+    NSError *error;
+    [KTVHTTPCache proxyStart:&error];
+    if (error) {
+      return [source objectForKey:@"url"];
     }
-    if ([source objectForKey:@"headers"]) {
-      [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
-    }
-    return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString;
+  }
+  if ([source objectForKey:@"headers"]) {
+    [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
+  }
+  return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString;
 }
 
 RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
@@ -38,14 +38,14 @@ RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
   resolve([KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString);
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isCached:(NSURL *)url)
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isCached:(NSDictionary *)source)
 {
-    NSURL *completeCacheFileURL= [KTVHTTPCache cacheCompleteFileURLWithURL:url];
-    if (completeCacheFileURL == nil) {
-      return @NO;
-    } else {
-      return @YES;
-    }
+  NSURL *completeCacheFileURL= [KTVHTTPCache cacheCompleteFileURLWithURL:[NSURL URLWithString:[source objectForKey:@"url"]]];
+  if (completeCacheFileURL == nil) {
+    return @NO;
+  } else {
+    return @YES;
+  }
 }
 
 @end

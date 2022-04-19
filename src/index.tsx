@@ -30,6 +30,6 @@ export const convertAsync = (source: sourceType) => {
   return VideoCacheControl.convertAsync(source);
 };
 
-export const isCached = (url: string) => {
-  return VideoCacheControl.isCached(url);
+export const isCached = (source: sourceType) => {
+  return VideoCacheControl.isCached(source);
 };
