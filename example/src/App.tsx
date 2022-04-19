@@ -1,64 +1,79 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import convertToCache, {
-  convertAsync,
-  isCached,
-} from 'react-native-video-cache-control';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import convertToProxyURL, { isCached } from 'react-native-video-cache-control';
+import VideoPlayer from 'react-native-video-player';
 
-export default function App() {
-  const url =
-    'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4';
-  const [asyncVersion, setAsyncVersion] = useState<string>();
-  const [Cached, setCached] = useState(false);
+const styles = StyleSheet.create({});
+
+const array = [
+  'https://wmstatic.wangli-tech.com/video/course1_1.mp4',
+  'https://wmstatic.wangli-tech.com/video/course1_2.mp4',
+  'https://wmstatic.wangli-tech.com/video/course1_3.mp4',
+  'https://wmstatic.wangli-tech.com/video/course1_4.mp4',
+  'https://wmstatic.wangli-tech.com/video/course2_1.mp4',
+  'https://wmstatic.wangli-tech.com/video/course2_2.mp4',
+  'https://wmstatic.wangli-tech.com/video/course2_3.mp4',
+  'https://wmstatic.wangli-tech.com/video/course3_1.mp4',
+  'https://wmstatic.wangli-tech.com/video/course3_2.mp4',
+  'https://wmstatic.wangli-tech.com/video/course3_3.mp4',
+  'https://wmstatic.wangli-tech.com/video/course4_1.mp4',
+  'https://wmstatic.wangli-tech.com/video/course4_2.mp4',
+];
+
+function App() {
+  const [proxyUrl, setProxyUrl] = useState('');
+  const [cached, setCached] = useState(false);
+
   useEffect(() => {
-    convertAsync({ url })
-      .then((fileUrl: string) => {
-        console.log(fileUrl);
-        setAsyncVersion(fileUrl);
-      })
-      .catch((e: any) => {
-        console.log(e);
-      });
-    console.log('123', isCached(url));
+    const bool = isCached({
+      url: array[0],
+      headers: {
+        referer: 'https://wm.wangli-tech.com',
+      },
+    });
+    setCached(bool);
+    const url = convertToProxyURL({
+      url: array[0],
+      headers: {
+        referer: 'https://wm.wangli-tech.com',
+      },
+    });
+    setProxyUrl(url);
   }, []);
 
-  useEffect(() => {
-    let id = setInterval(() => {
-      const bool = isCached(url);
-      console.log(bool);
-      setCached(bool);
-    }, 1000);
-    return () => clearInterval(id);
-  });
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>☆Original URL☆ {Cached}</Text>
-      <Text style={styles.instructions}>{url}</Text>
-      <Text style={styles.welcome}>☆Proxy URL for Video Component☆</Text>
-      <Text style={styles.instructions}>{convertToCache({ url })}</Text>
-      <Text style={styles.welcome}>☆Async Proxy URL☆</Text>
-      <Text style={styles.instructions}>{asyncVersion}</Text>
+    <View style={{ flex: 1 }}>
+      <View style={[{ width: '100%', height: 300 }]}>
+        <VideoPlayer
+          video={{
+            uri: proxyUrl,
+          }}
+          videoWidth={300}
+          videoHeight={300}
+          thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+        />
+      </View>
+      <View
+        style={[{ flex: 1, justifyContent: 'center', alignItems: 'center' }]}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            const bool = isCached({
+              url: array[0],
+              headers: {
+                referer: 'https://wm.wangli-tech.com',
+              },
+            });
+            setCached(bool);
+          }}
+        >
+          <Text>{`url: ${array[0]}`}</Text>
+          <Text>{`proxy: ${proxyUrl}`}</Text>
+          <Text>{`cached: ${cached}`}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    padding: 20,
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default App;
