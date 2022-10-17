@@ -17,7 +17,17 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(convert:(NSDictionary *)source)
   if ([source objectForKey:@"headers"]) {
     [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
   }
-  return [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString;
+  NSURL* videoUrl = [NSURL URLWithString:[source objectForKey:@"url"]];
+  @try {
+      NSURL *completedCacheFileURL = [KTVHTTPCache cacheCompleteFileURLWithURL:videoUrl];
+      if (completedCacheFileURL != nil) {
+          return completedCacheFileURL.absoluteString;
+      }
+  }
+  @catch (NSException *exception) {
+  }
+
+  return [KTVHTTPCache proxyURLWithOriginalURL:videoUrl].absoluteString;
 }
 
 RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
@@ -35,7 +45,17 @@ RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
   if ([source objectForKey:@"headers"]) {
     [KTVHTTPCache downloadSetAdditionalHeaders:[source objectForKey:@"headers"]];
   }
-  resolve([KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:[source objectForKey:@"url"]]].absoluteString);
+  NSURL* videoUrl = [NSURL URLWithString:[source objectForKey:@"url"]];
+  @try {
+      NSURL *completedCacheFileURL = [KTVHTTPCache cacheCompleteFileURLWithURL:videoUrl];
+      if (completedCacheFileURL != nil) {
+          resolve(completedCacheFileURL.absoluteString);
+          return;
+      }
+  }
+  @catch (NSException *exception) {
+  }
+  resolve([KTVHTTPCache proxyURLWithOriginalURL:videoUrl].absoluteString);
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isCached:(NSDictionary *)source)
