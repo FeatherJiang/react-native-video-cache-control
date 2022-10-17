@@ -20,3 +20,15 @@ import convertToProxyURL from 'react-native-video-cache-control';
 ...
 <Video source={{uri: convertToProxyURL({url: originalURL, headers: {referer: 'https://example.com'}})}} />
 ```
+
+### Install on android
+
+Edit your `android/build.gradle` file and add the following lines:
+
+```
+        maven {
+            url "$rootDir/../node_modules/react-native-video-cache/android/libs"
+        }
+```
+
+to your `allprojects/repositories`
