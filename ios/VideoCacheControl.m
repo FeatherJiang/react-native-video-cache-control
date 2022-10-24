@@ -54,6 +54,7 @@ RCT_EXPORT_METHOD(convertAsync:(NSDictionary *)source
       }
   }
   @catch (NSException *exception) {
+      reject(@"cacheComplete.error", @"failed to test cacheComplete error", exception);
   }
   resolve([KTVHTTPCache proxyURLWithOriginalURL:videoUrl].absoluteString);
 }
@@ -65,6 +66,23 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isCached:(NSDictionary *)source)
     return @NO;
   } else {
     return @YES;
+  }
+}
+
+RCT_EXPORT_METHOD(clearCache:(NSURL *)url resolver:(RCTPromiseResolveBlock) resolve rejecter:(RCTPromiseRejectBlock) reject)
+{
+  @try {
+      if (url) {
+        [KTVHTTPCache cacheDeleteCacheWithURL: url];
+        resolve(@YES);
+      } else {
+        [KTVHTTPCache cacheDeleteAllCaches];
+        resolve(@YES);
+      }
+      
+  }
+  @catch (NSException *exception) {
+    reject(@"delete.error", @"failed to delete cache", exception);
   }
 }
 

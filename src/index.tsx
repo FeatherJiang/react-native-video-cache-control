@@ -33,3 +33,18 @@ export const convertAsync = (source: sourceType) => {
 export const isCached = (source: sourceType) => {
   return VideoCacheControl.isCached(source);
 };
+
+export const registerCacheListener = (
+  url: string,
+  callback: (filePath: string, percent: number) => {}
+) => {
+  return VideoCacheControl.registerCacheListener(url, callback);
+};
+
+export const unregisterCacheListener = (url: string) => {
+  return VideoCacheControl.unregisterCacheListener(url);
+};
+
+export const clearCache = (url?: string) => {
+  return VideoCacheControl.clearCache(url);
+};
