@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Utils {
   public static void  cleanVideoCacheFile(String url,Context context) throws IOException {
-    File cacheDir = StorageUtils.getIndividualCacheDirectory(context);;
+    File cacheDir = StorageUtils.getIndividualCacheDirectory(context);
     String fileName = new Md5FileNameGenerator().generate(url);
     File file = new File(cacheDir,fileName);
     Log.d("VideoCacheControl",url + "," + file.exists() + "," + file.isFile());
@@ -21,13 +21,9 @@ public class Utils {
       }
     }
   }
-
-  public static File getVideoCacheDir(Context context) {
-    return new File(context.getExternalCacheDir(), "video-cache");
-  }
-
+  
   public static void cleanVideoCacheDir(Context context) throws IOException {
-    File videoCacheDir = getVideoCacheDir(context);
+    File videoCacheDir = StorageUtils.getIndividualCacheDirectory(context);
     cleanDirectory(videoCacheDir);
   }
 
