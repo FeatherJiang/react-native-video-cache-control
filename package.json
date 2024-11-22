@@ -1,6 +1,6 @@
 {
   "name": "react-native-video-cache-control",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "react native video cache control",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

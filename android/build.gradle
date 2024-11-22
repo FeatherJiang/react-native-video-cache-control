@@ -57,4 +57,5 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.danikula:videocache:2.7.1'
+    implementation 'org.slf4j:slf4j-api:2.0.9'
 }
