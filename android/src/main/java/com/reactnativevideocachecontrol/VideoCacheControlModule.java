@@ -80,23 +80,21 @@ public class VideoCacheControlModule extends ReactContextBaseJavaModule {
         return this.proxy.isCached(source.getString("url"));
     }
 
-    @ReactMethod(isBlockingSynchronousMethod = true)
+    @ReactMethod
     public void registerCacheListener(String url, Callback callback) {
-      if (url == null || callback == null || this.proxy == null) {
-        return;
-      }
-      CacheListener listener = new VideoCacheListener(callback);
-      listenerHashMap.put(url, listener);
-      this.proxy.registerCacheListener(listener, url);
+        if (url != null && callback != null && this.proxy != null) {
+            CacheListener listener = new VideoCacheListener(callback);
+            listenerHashMap.put(url, listener);
+            this.proxy.registerCacheListener(listener, url);
+        }
     }
 
-    @ReactMethod(isBlockingSynchronousMethod = true)
+    @ReactMethod
     public void unregisterCacheListener(String url) {
-      if (url == null || this.proxy == null) {
-        return;
-      }
-      CacheListener listener = listenerHashMap.get(url);
-      this.proxy.unregisterCacheListener(listener);
+        if (url != null && this.proxy != null) {
+            CacheListener listener = listenerHashMap.get(url);
+            this.proxy.unregisterCacheListener(listener);
+        }
     }
 
     @ReactMethod
